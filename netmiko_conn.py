@@ -6,3 +6,6 @@ rtr1 = {
     "username": "juniper",
     "password": "juniper123!",
 }
+
+with ConnectHandler(**rtr1) as net_connect:
+    output = net_connect.send_command("show version")
