@@ -4,3 +4,4 @@ RETURN_CODE=0
 PYTEST='py.test -s -v -x'
 
 echo "Starting tests...good luck:"
+echo "Some test for IP addresses"
