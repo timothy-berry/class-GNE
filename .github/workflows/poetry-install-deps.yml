@@ -29,11 +29,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          poetry install
+          poetry install --no-root
 
       - name: Display Python version
         run: python -c "import sys; print(sys.version)"
 
       - name: Display installed packages
-        run: pip list
+        run: poetry run pip list
 
