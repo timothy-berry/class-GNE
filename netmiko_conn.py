@@ -7,5 +7,6 @@ rtr1 = {
     "password": "juniper123!",
 }
 
+# Establish Netmiko Connection and execute simple 'show' command
 with ConnectHandler(**rtr1) as net_connect:
     output = net_connect.send_command("show version")
