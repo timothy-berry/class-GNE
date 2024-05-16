@@ -18,8 +18,3 @@ for device in (rtr1, rtr2):
     with ConnectHandler(**device) as net_connect:
         output = net_connect.send_command("show version")
         print(output)
-
-# Hello
-# Change1
-# Change2
-# Change3
