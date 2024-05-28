@@ -8,7 +8,7 @@ jobs:
   # Dict of jobs
   # Each key is a new job
   # Each value is also a dictionary (keys: strategy, runs-on, steps)
-  pip-deps:
+  the-matrix:
 
     strategy:
       matrix:
