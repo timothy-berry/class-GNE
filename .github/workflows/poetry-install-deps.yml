@@ -1,0 +1,42 @@
+---
+name: Testing GH Actions
+on: 
+  - push
+jobs:
+  poetry-deps:
+
+    strategy:
+      matrix:
+        # python-version: ["3.12"]
+        # platform: ["ubuntu-22.04"]
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
+        platform: ["windows-2022", "macos-13", "ubuntu-22.04"]
+
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # Poetry needs to be installed outside of the 'venv'
+      # There are various ways to do this, this is one of the easier ways.
+      - name: Install poetry
+        run: |
+          pipx install poetry
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'poetry'
+
+      # Install dependencies, but do not 'python' install this repository itself
+      - name: Install dependencies
+        run: |
+          poetry install --no-root
+
+      - name: Display Python version
+        run: python3 --version
+
+      - name: Display installed packages
+        run: poetry run pip list
+
