@@ -1,0 +1,12 @@
+---
+rtr1:
+  ip: 10.100.1.1
+  device_type: arista_eos
+  username: admin
+  password: arista!123
+
+rtr2:
+  ip: 10.100.1.2
+  device_type: arista_eos
+  username: admin
+  password: arista!123
