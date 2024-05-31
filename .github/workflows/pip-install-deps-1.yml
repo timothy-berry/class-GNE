@@ -1,0 +1,22 @@
+---
+name: Install Python Dependencies
+on: 
+  - push
+  - workflow_dispatch
+
+jobs:
+  pip_install:
+    runs-on: "ubuntu-24.04"
+
+    steps:
+      # Checkout this repository
+      - uses: actions/checkout@v4
+
+      # Setup the specified Python version
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: python3 --version
+
