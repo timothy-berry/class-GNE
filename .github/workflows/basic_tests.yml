@@ -1,0 +1,12 @@
+---
+name: Testing GH Actions
+on: 
+  - push
+
+jobs:
+  basic_job:
+    runs-on: "ubuntu-24.04"
+    steps:
+      - run: python3 --version
+
+
