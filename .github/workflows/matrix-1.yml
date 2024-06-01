@@ -1,0 +1,41 @@
+---
+name: Linting with matrix
+on: 
+  - push
+  - workflow_dispatch
+
+jobs:
+  linting:
+
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
+        platform: ["ubuntu-22.04"]
+        # python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
+        # platform: ["windows-2022", "macos-13", "ubuntu-22.04"]
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      # Checkout this repository
+      - uses: actions/checkout@v4
+
+      # Setup the specified Python version
+      - name: "Set up Python ${{ matrix.python-version }}"
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - run: |
+          echo "Running on ${{ matrix.platform }}"
+          python3 --version
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - name: Linting (pylama)
+        run: pylama .
+
+      - name: Linting (black)
+        run: black --check .
