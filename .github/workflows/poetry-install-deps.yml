@@ -1,0 +1,41 @@
+---
+name: Python Poetry
+on: 
+  - push
+  - pull_request
+  
+jobs:
+  poetry-deps:
+    strategy:
+      matrix:
+        python-version: ["3.12"]
+        platform: ["ubuntu-24.04"]
+
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # Poetry needs to be installed outside of the 'venv'
+      # There are various ways to do this, this is one of the easier ways.
+      - name: Install poetry
+        run: |
+          pipx install poetry
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'poetry'
+
+      # Install dependencies, but do not 'python' install this repository itself
+      - name: Install dependencies
+        run: |
+          poetry install --no-root
+
+      - name: Display Python version
+        run: poetry run python3 --version
+
+      - name: Display installed packages
+        run: poetry run pip list
+
