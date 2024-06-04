@@ -1,0 +1,14 @@
+---
+name: Testing Conditionals
+on: 
+  - push
+
+jobs:
+  conditionals:
+    runs-on: "ubuntu-24.04"
+    steps:
+      - run: python3 --version
+
+      - run: echo "Testing conditional"
+        if: github.repository != 'twin-bridges/gne'
+

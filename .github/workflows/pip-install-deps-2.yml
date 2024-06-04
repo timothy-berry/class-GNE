@@ -1,5 +1,5 @@
 ---
-name: Install Python Dependencies
+name: "Install Python Dependencies 2"
 on: 
   - push
   - workflow_dispatch
