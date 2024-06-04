@@ -1,5 +1,14 @@
 ---
-name: Linting
+# GITHUB_WORKFLOW: The name of the workflow.
+# GITHUB_RUN_ID: A unique identifier for the workflow run.
+# GITHUB_RUN_NUMBER: The number of the current run of the workflow.
+# GITHUB_ACTION: The name of the action.
+# GITHUB_ACTOR: The name of the person or app that initiated the workflow.
+# GITHUB_JOB: The ID of the current job.
+# GITHUB_REF: The branch or tag ref that triggered the workflow.
+# GITHUB_SHA: The commit SHA that triggered the workflow.
+# GITHUB_REPOSITORY: The owner and repository name (e.g., user/repo).
+name: Env Vars
 on: 
   - push
   - workflow_dispatch
@@ -11,6 +20,10 @@ jobs:
     runs-on: "ubuntu-24.04"
 
     steps:
+      - run: |
+          echo "Workflow name: $GITHUB_WORKFLOW"
+          echo "Repository: $GITHUB_REPOSITORY"
+
       # Checkout this repository
       - uses: actions/checkout@v4
 
