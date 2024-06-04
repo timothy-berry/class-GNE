@@ -1,22 +1,15 @@
+
 ---
-# GITHUB_WORKFLOW: The name of the workflow.
-# GITHUB_RUN_ID: A unique identifier for the workflow run.
-# GITHUB_RUN_NUMBER: The number of the current run of the workflow.
-# GITHUB_ACTION: The name of the action.
-# GITHUB_ACTOR: The name of the person or app that initiated the workflow.
-# GITHUB_JOB: The ID of the current job.
-# GITHUB_REF: The branch or tag ref that triggered the workflow.
-# GITHUB_SHA: The commit SHA that triggered the workflow.
-# GITHUB_REPOSITORY: The owner and repository name (e.g., user/repo).
-name: Env Vars
+name: Environment Variables
 on: 
   - push
   - workflow_dispatch
 env:
   FORCE_COLOR: 1
+  ENVIRONMENT: gh_actions
 
 jobs:
-  linting:
+  env_vars:
     runs-on: "ubuntu-24.04"
 
     steps:
@@ -24,26 +17,13 @@ jobs:
           echo "Workflow name: $GITHUB_WORKFLOW"
           echo "Repository: $GITHUB_REPOSITORY"
 
-      # Checkout this repository
-      - uses: actions/checkout@v4
-
-      # Setup the specified Python version
-      - name: "Set up Python 3.12"
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
       - run: |
-          echo "Running on ${{ runner.os }}"
-          python3 --version
+          echo "Environment: $ENVIRONMENT"
+          echo "Secret: ${{ secrets.MY_SECRET }}"
 
-      - name: Install dependencies
+      - run: env
+
+      - name: "Testing variables in ${{ env.ENVIRONMENT }}"
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install -r ./requirements.txt
+          echo "Environment: ${{ env.ENVIRONMENT }}"
 
-      - name: Linting (pylama)
-        run: pylama .
-
-      - name: Linting (black)
-        run: black --check .
