@@ -1,0 +1,20 @@
+
+---
+name: Capture Step Output
+on: 
+  - push
+
+jobs:
+  capture_output:
+    runs-on: "ubuntu-24.04"
+
+    steps:
+      - name: Generate random number
+        id: random 
+        run: |
+          echo "Generating a random number"
+          echo "random_number=$RANDOM" >> $GITHUB_OUTPUT
+  
+      - name: Use output from previous step
+        run: echo "Random number ${{ steps.random.outputs.random_number }}"
+

@@ -19,9 +19,6 @@ jobs:
 
       - run: |
           echo "Environment: $ENVIRONMENT"
-          echo "Secret: ${{ secrets.MY_SECRET }}"
-
-      - run: env
 
       - name: "Testing variables in ${{ env.ENVIRONMENT }}"
         run: |
