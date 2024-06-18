@@ -1,5 +1,7 @@
 ip_addr = "10.88.17.100"
 
+print()
 for octet in ip_addr.split("."):
-    print(octet)
-    print(bin(int(octet)))
+    print(f"Octet: {octet}")
+    print(f"Binary: {bin(int(octet))}")
+    print()
